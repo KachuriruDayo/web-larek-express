@@ -31,7 +31,7 @@ export const createProduct = (req: Request, res: Response, next: NextFunction) =
       } else if (error instanceof MongooseError.ValidationError) {
         next(new BadRequestError(error.message));
       } else {
-        return next(new IternalError('Сервер недоступен'));
+        next(new IternalError('Сервер недоступен'));
       }
     });
 };
