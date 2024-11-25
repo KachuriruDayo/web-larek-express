@@ -6,7 +6,7 @@ import IternalError from '../errors/iternal-error';
 import ConflictError from '../errors/conflict-error';
 
 export const getProducts = (_req: Request, res: Response, next: NextFunction) => Product.find({})
-  .then((products) => res.send({ items: products, total: products.length }))
+  .then((products) => res.status(201).send({ items: products, total: products.length }))
   .catch(() => next(new IternalError('Сервер недоступен')));
 
 export const createProduct = (req: Request, res: Response, next: NextFunction) => {
@@ -24,7 +24,7 @@ export const createProduct = (req: Request, res: Response, next: NextFunction) =
     category,
     price,
   })
-    .then((product) => res.send({ item: product }))
+    .then((product) => res.status(201).send({ item: product }))
     .catch((error) => {
       if (error instanceof Error && error.message.includes('E11000')) {
         next(new ConflictError('Такой заголовок товара уже существует'));
