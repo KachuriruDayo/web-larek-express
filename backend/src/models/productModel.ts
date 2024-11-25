@@ -21,21 +21,23 @@ const imageSchema = new mongoose.Schema<IImage>({
 const productSchema = new mongoose.Schema<IProduct>({
   title: {
     type: String,
-    minlength: 2,
-    maxlength: 30,
+    minlength: [2, 'Минимальная длина поля "title" - 2'],
+    maxlength: [30, 'Максимальная длина поля "title" - 30'],
     unique: true,
-    required: true,
+    required: [true, 'Поле "title" должно быть заполнено'],
   },
   image: imageSchema,
   category: {
     type: String,
-    required: true,
-    enum: ['софт-скил', 'хард-скил',
-      'другое', 'дополнительное', 'кнопка'],
+    required: [true, 'Поле "category" должно быть заполнено'],
+    enum: {
+      values: ['софт-скил', 'хард-скил', 'другое', 'дополнительное', 'кнопка'],
+      message: 'Нужно указать одну их этих категорий: софт-скил, хард-скил, другое, дополнительное, кнопка',
+    },
   },
   description: {
     type: String,
-    required: true,
+    required: [true, 'Поле "description" должно быть заполнено'],
   },
   price: {
     type: Number,
