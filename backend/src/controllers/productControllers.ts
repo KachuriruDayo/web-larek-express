@@ -6,7 +6,7 @@ import IternalError from '../errors/iternal-error';
 import ConflictError from '../errors/conflict-error';
 
 export const getProducts = (_req: Request, res: Response, next: NextFunction) => Product.find({})
-  .then((products) => res.status(201).send({ items: products, total: products.length }))
+  .then((products) => res.status(200).send({ items: products, total: products.length }))
   .catch(() => next(new IternalError('Сервер недоступен')));
 
 export const createProduct = (req: Request, res: Response, next: NextFunction) => {
